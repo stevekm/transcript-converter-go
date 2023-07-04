@@ -1,11 +1,7 @@
 package main
 
 import (
-	// "fmt"
 	"github.com/google/go-cmp/cmp"
-	// "log"
-	// "os"
-	// "path/filepath"
 	"testing"
 )
 
@@ -28,13 +24,8 @@ func TestFindAllFiles(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			trName, trPos := ConvertCoordinate(tc.query, tc.transcripts)
-			// sizes, err := SubDirSizes(tempdir)
-			// if err != nil {
-			// 	log.Fatal(err)
-			// }
+			trName, trPos, _ := ConvertCoordinate(tc.query, tc.transcripts)
 			got := trPos
-			// fmt.Printf("sizes: %v\n", sizes)
 			if diff := cmp.Diff(tc.wantPos, got); diff != "" {
 				t.Errorf("got vs want mismatch (-want +got):\n%s", diff)
 			}
