@@ -16,6 +16,7 @@ func TestFindAllFiles(t *testing.T) {
 			query: Query{Name: "TR1", Pos: 4},
 			transcripts: map[string]Transcript{
 				"TR1": Transcript{Name: "TR1", Chrom: "CHR1", Pos: 3, Cigar: "8M7D6M2I2M11D7M"},
+				"TR2": Transcript{Name: "TR2", Chrom: "CHR2", Pos: 10, Cigar: "20M"},
 			},
 			wantPos:  7,
 			wantName: "TR1",
