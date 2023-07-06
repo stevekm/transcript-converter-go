@@ -152,12 +152,10 @@ func ConvertCoordinate(query Query, transcripts map[string]Transcript) (string, 
 }
 
 func main() {
-	fmt.Println("hello")
 	transcripts, err := loadTranscripts("tests/input1.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%+v\n", transcripts)
 
 	queries, err := loadQueries("tests/input2.txt")
 	if err != nil {
