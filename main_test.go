@@ -26,12 +26,12 @@ func TestFindAllFiles(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			trName, trPos, _ := ConvertCoordinate(tc.query, tc.transcripts)
+			transcript, trPos, _ := ConvertCoordinate(tc.query, tc.transcripts)
 			got := trPos
 			if diff := cmp.Diff(tc.wantPos, got); diff != "" {
 				t.Errorf("got vs want mismatch (-want +got):\n%s", diff)
 			}
-			if diff := cmp.Diff(tc.wantName, trName); diff != "" {
+			if diff := cmp.Diff(tc.wantName, transcript.Name); diff != "" {
 				t.Errorf("got vs want mismatch (-want +got):\n%s", diff)
 			}
 		})

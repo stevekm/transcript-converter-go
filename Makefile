@@ -7,3 +7,6 @@ test:
 
 format:
 	go fmt .
+
+run:
+	go run main.go "tests/input1.txt" "tests/input2.txt"

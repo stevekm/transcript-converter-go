@@ -85,13 +85,13 @@ func loadQueries(filename string) ([]Query, error) {
 	return queries, nil
 }
 
-func ConvertCoordinate(query Query, transcripts map[string]Transcript) (string, int, error) {
+func ConvertCoordinate(query Query, transcripts map[string]Transcript) (Transcript, int, error) {
 	// fmt.Printf("query: %v, transcripts: %v\n", query, transcripts)
 	// check if the Query transcript name is in the transcript map
 	_, ok := transcripts[query.Name]
 	// If the key does not exist, return error
 	if !ok {
-		return "NA", 0, errors.New("Missing transcript")
+		return Transcript{}, 0, errors.New("Missing transcript")
 	}
 
 	// get the transcript map entry
@@ -148,24 +148,27 @@ func ConvertCoordinate(query Query, transcripts map[string]Transcript) (string, 
 
 	}
 
-	return query.Name, finalPos, nil
+	return transcript, finalPos, nil
 }
 
 func main() {
-	transcripts, err := loadTranscripts("tests/input1.txt")
+	transcriptFilePath := os.Args[1]
+	queryFilePath := os.Args[2]
+
+	transcripts, err := loadTranscripts(transcriptFilePath) //"tests/input1.txt"
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	queries, err := loadQueries("tests/input2.txt")
+	queries, err := loadQueries(queryFilePath) //"tests/input2.txt"
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, query := range queries {
-		trName, trPos, err := ConvertCoordinate(query, transcripts)
+		transcript, trPos, err := ConvertCoordinate(query, transcripts)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("%+v %v\n", trName, trPos)
+		fmt.Printf("%+v\t%v\t%v\t%v\n", query.Name, query.Pos, transcript.Chrom, trPos)
 	}
 }
